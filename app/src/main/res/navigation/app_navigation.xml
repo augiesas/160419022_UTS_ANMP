@@ -14,7 +14,11 @@
         android:id="@+id/itemSearch"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/actionStandDetail"
+            app:destination="@id/standDetail" />
+    </fragment>
     <fragment
         android:id="@+id/itemFavorite"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.FavoritFragment"
@@ -25,4 +29,13 @@
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/standDetail"
+        android:name="id.ac.ubaya.a160419022_ubayakuliner.view.StandDetailFragment"
+        android:label="fragment_stand_detail"
+        tools:layout="@layout/fragment_stand_detail" >
+        <argument
+            android:name="id_stand"
+            app:argType="integer" />
+    </fragment>
 </navigation>
