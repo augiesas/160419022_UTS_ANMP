@@ -39,9 +39,9 @@ class StandListAdapter(val standList:ArrayList<Stand>):RecyclerView.Adapter<Stan
 
     override fun getItemCount() = standList.size
 
-    fun updateStandList(newStudentList: ArrayList<Stand>){
+    fun updateStandList(newStandList: ArrayList<Stand>){
         standList.clear()
-        standList.addAll(newStudentList)
+        standList.addAll(newStandList)
         notifyDataSetChanged()
     }
 }

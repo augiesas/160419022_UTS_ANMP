@@ -11,35 +11,35 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.ac.ubaya.a160419022_ubayakuliner.model.Comment
-import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
 
-class DetailViewModel (application: Application) : AndroidViewModel(application) {
+class CommentViewModel (application: Application) : AndroidViewModel(application){
 
-    val standLiveData = MutableLiveData<Stand>()
-    val standLoadErrorLiveData = MutableLiveData<Boolean>()
+    val commentsLiveData = MutableLiveData<ArrayList<Comment>>()
+    val commentsLoadErrorLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = MutableLiveData<Boolean>()
     val TAG = "volleyTag"
-    private var queue: RequestQueue? = null
+    private var queue:RequestQueue?=null
 
-    fun fetch(standId: Int) {
+    fun fetch(standId: Int){
+        commentsLoadErrorLiveData.value = false
+
+
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://ubaya.fun/native/160419022/ANMP/getdetailstand.php?id=$standId"
-        Log.d("masuk", "masuk not null")
-
+        val url = "https://ubaya.fun/native/160419022/ANMP/getcomment.php?id=$standId"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
-//                val sType = object : TypeToken<ArrayList<Stand>>(){}.type
-                val result = Gson().fromJson<Stand>(it, Stand::class.java)
-                standLiveData.value = result
+                val sType = object : TypeToken<ArrayList<Comment>>(){}.type
+                val result = Gson().fromJson<ArrayList<Comment>>(it, sType)
+                commentsLiveData.value = result
 
                 loadingLiveData.value = false
-                Log.d("showvolley", it)
+                Log.d("showvolley",it)
             },
             {
-                standLoadErrorLiveData.value = true
+                commentsLoadErrorLiveData.value = true
                 loadingLiveData.value = false
-                Log.d("errorvolley", it.toString())
+                Log.d("errorvolley",it.toString())
 
             }
         ).apply {
