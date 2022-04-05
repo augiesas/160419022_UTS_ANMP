@@ -10,11 +10,13 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseComment
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseGenre
 import id.ac.ubaya.a160419022_ubayakuliner.model.Comment
 
 class CommentViewModel (application: Application) : AndroidViewModel(application){
 
-    val commentsLiveData = MutableLiveData<ArrayList<Comment>>()
+    val commentsLiveData = MutableLiveData<ApiResponseComment>()
     val commentsLoadErrorLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = MutableLiveData<Boolean>()
     val TAG = "volleyTag"
@@ -29,8 +31,10 @@ class CommentViewModel (application: Application) : AndroidViewModel(application
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
-                val sType = object : TypeToken<ArrayList<Comment>>(){}.type
-                val result = Gson().fromJson<ArrayList<Comment>>(it, sType)
+//                val sType = object : TypeToken<ArrayList<Comment>>(){}.type
+//                val result = Gson().fromJson<ArrayList<Comment>>(it, sType)
+                val result: ApiResponseComment = Gson().fromJson(it, ApiResponseComment::class.java)
+
                 commentsLiveData.value = result
 
                 loadingLiveData.value = false

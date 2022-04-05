@@ -7,7 +7,7 @@
     tools:context=".view.SearchFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+        android:id="@+id/refreshLayoutTrending"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.StudentListFragment">
@@ -37,9 +37,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recViewSearch"
-                android:layout_width="409dp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -12,36 +12,37 @@ import androidx.recyclerview.widget.GridLayoutManager
 import id.ac.ubaya.a160419022_ubayakuliner.R
 import id.ac.ubaya.a160419022_ubayakuliner.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search.refreshLayoutTrending
+import kotlinx.android.synthetic.main.fragment_trending.*
 
-class SearchFragment : Fragment() {
+class TrendingFragment : Fragment() {
     private lateinit var viewModel: ListViewModel
-    private val standListAdapter = StandListAdapter(arrayListOf())
+    private val standListAdapter = TrendingListAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return inflater.inflate(R.layout.fragment_trending, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as AppCompatActivity).supportActionBar?.title = "Search"
 
-        viewModel =ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.refresh()
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        viewModel.refresh("favorite")
 //        viewModel.Like()
 
-        recViewSearch.layoutManager = GridLayoutManager(context,2)
-        recViewSearch.adapter = standListAdapter
+        recTrending.layoutManager = GridLayoutManager(context,2)
+        recTrending.adapter = standListAdapter
 
         observeViewModel()
 
         refreshLayoutTrending.setOnRefreshListener {
-            recViewSearch.visibility = View.GONE
-            txtError.visibility = View.GONE
-            progressLoad.visibility = View.VISIBLE
-            viewModel.refresh()
+            recTrending.visibility = View.GONE
+            txtErrorTrending.visibility = View.GONE
+            progressLoadTrending.visibility = View.VISIBLE
+            viewModel.refresh("favorite")
             refreshLayoutTrending.isRefreshing = false
         }
     }
@@ -52,20 +53,20 @@ class SearchFragment : Fragment() {
         })
         viewModel.standLoadErrorLiveData.observe(viewLifecycleOwner){
             if(it){
-                txtError.visibility = View.VISIBLE
+                txtErrorTrending.visibility = View.VISIBLE
             }
             else{
-                txtError.visibility = View.GONE
+                txtErrorTrending.visibility = View.GONE
             }
         }
         viewModel.loadingLiveData.observe(viewLifecycleOwner){
             if(it){
-                recViewSearch.visibility = View.GONE
-                progressLoad.visibility = View.VISIBLE
+                recTrending.visibility = View.GONE
+                progressLoadTrending.visibility = View.VISIBLE
             }
             else{
-                recViewSearch.visibility = View.VISIBLE
-                progressLoad.visibility = View.GONE
+                recTrending.visibility = View.VISIBLE
+                progressLoadTrending.visibility = View.GONE
             }
         }
     }

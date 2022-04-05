@@ -8,8 +8,15 @@
     <fragment
         android:id="@+id/itemHome"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Ubaya Kuliner"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionStandDetailFromHome"
+            app:destination="@id/standDetail" />
+        <action
+            android:id="@+id/actionTrending"
+            app:destination="@id/listTrending" />
+    </fragment>
     <fragment
         android:id="@+id/itemSearch"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.SearchFragment"
@@ -22,13 +29,24 @@
     <fragment
         android:id="@+id/itemFavorite"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.FavoritFragment"
-        android:label="fragment_favorit"
-        tools:layout="@layout/fragment_favorit" />
+        android:label="My Favorite"
+        tools:layout="@layout/fragment_favorit">
+        <action
+            android:id="@+id/actionStandDetailFromFavorite"
+            app:destination="@id/standDetail" />
+    </fragment>
     <fragment
         android:id="@+id/itemPerson"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.UserFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        android:label="User"
+        tools:layout="@layout/fragment_user">
+        <action
+            android:id="@+id/actionEdit"
+            app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/actionFavorite"
+            app:destination="@id/itemFavorite" />
+    </fragment>
     <fragment
         android:id="@+id/standDetail"
         android:name="id.ac.ubaya.a160419022_ubayakuliner.view.StandDetailFragment"
@@ -37,5 +55,37 @@
         <argument
             android:name="id_stand"
             app:argType="integer" />
+        <argument
+            android:name="nama_stand"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionAddReview"
+            app:destination="@id/addReview" />
+    </fragment>
+    <dialog
+        android:id="@+id/addReview"
+        android:name="id.ac.ubaya.a160419022_ubayakuliner.view.AddReviewFragment"
+        android:label="Add Review"
+        tools:layout="@layout/fragment_add_review" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="id.ac.ubaya.a160419022_ubayakuliner.view.EditFragment"
+        android:label="Edit Personal Data"
+        tools:layout="@layout/fragment_edit" >
+        <argument
+            android:name="nama"
+            app:argType="string" />
+        <argument
+            android:name="alamat"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/listTrending"
+        android:name="id.ac.ubaya.a160419022_ubayakuliner.view.TrendingFragment"
+        android:label="Trending"
+        tools:layout="@layout/fragment_trending" >
+        <action
+            android:id="@+id/actionDetailFromTrending"
+            app:destination="@id/standDetail" />
     </fragment>
 </navigation>

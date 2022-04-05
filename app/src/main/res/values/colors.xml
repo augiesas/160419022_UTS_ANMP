@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="navbar">#7F9183</color>
+    <color name="main">#DDD5D0</color>
+    <color name="text">#3b443d</color>
 </resources>

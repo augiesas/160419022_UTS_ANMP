@@ -6,18 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".view.FavoritFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayoutFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.StudentListFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favorit"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recMyFavorite"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressLoadFavorite"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/recMyFavorite"
+            app:layout_constraintEnd_toEndOf="@id/recMyFavorite"
+            app:layout_constraintStart_toStartOf="@+id/recMyFavorite"
+            app:layout_constraintTop_toTopOf="@+id/recMyFavorite" />
+
+        <TextView
+            android:id="@+id/txtErrorFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error while loading data"
+            app:layout_constraintBottom_toBottomOf="@+id/progressLoadFavorite"
+            app:layout_constraintEnd_toEndOf="@+id/progressLoadFavorite"
+            app:layout_constraintStart_toStartOf="@+id/progressLoadFavorite"
+            app:layout_constraintTop_toTopOf="@+id/progressLoadFavorite" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

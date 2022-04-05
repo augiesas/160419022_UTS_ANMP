@@ -12,24 +12,20 @@ import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
 import id.ac.ubaya.a160419022_ubayakuliner.util.loadImage
 import kotlinx.android.synthetic.main.place_list_item.view.*
 
-class StandListAdapter(val standList:ArrayList<Stand>):RecyclerView.Adapter<StandListAdapter.StandViewHolder>(){
-    class StandViewHolder(var view: View) : RecyclerView.ViewHolder(view)
+class TrendingListAdapter(val standList:ArrayList<Stand>): RecyclerView.Adapter<TrendingListAdapter.TrendingViewHolder>(){
+    class TrendingViewHolder(var view: View) : RecyclerView.ViewHolder(view)
 
-    var count:Int = 0
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StandViewHolder {
-//        count = standList[0].data.size
-        Log.d("checkCount", count.toString())
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.place_list_item, parent, false)
-        return StandViewHolder(view)
+        return TrendingViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: StandViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: TrendingViewHolder, position: Int) {
         val api:ArrayList<ApiResponse> = arrayListOf(ApiResponse(standList))
+
         val stand = api[0].data[position]
-        Log.d("test1",position.toString())
+        Log.d("test",itemCount.toString())
 
         with(holder.view){
             txtPlace.text =stand.nama_tempat
@@ -39,7 +35,7 @@ class StandListAdapter(val standList:ArrayList<Stand>):RecyclerView.Adapter<Stan
             cardPlace.setOnClickListener {
                 val id = stand.id
                 Log.d("test",id.toString())
-                val action = SearchFragmentDirections.actionStandDetail(stand.id!!,
+                val action = TrendingFragmentDirections.actionDetailFromTrending(stand.id!!,
                     stand.nama_tempat.toString()
                 )
                 if (action != null) {
@@ -57,4 +53,3 @@ class StandListAdapter(val standList:ArrayList<Stand>):RecyclerView.Adapter<Stan
         notifyDataSetChanged()
     }
 }
-

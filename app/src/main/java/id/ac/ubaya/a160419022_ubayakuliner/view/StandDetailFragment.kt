@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.ac.ubaya.a160419022_ubayakuliner.R
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponse
 import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
 import id.ac.ubaya.a160419022_ubayakuliner.util.loadImage
 import id.ac.ubaya.a160419022_ubayakuliner.viewmodel.CommentViewModel
@@ -21,6 +24,7 @@ class StandDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private lateinit var viewModel2: CommentViewModel
     private val commentListAdapter = CommentListAdapter(arrayListOf())
+    private var judul:String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +35,12 @@ class StandDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         viewModel2 = ViewModelProvider(this).get(CommentViewModel::class.java)
         val stand_id = StandDetailFragmentArgs.fromBundle(requireArguments()).idStand
+        judul = StandDetailFragmentArgs.fromBundle(requireArguments()).namaStand
+        (activity as AppCompatActivity).supportActionBar?.title = "${judul}"
         viewModel.fetch(stand_id)
         viewModel2.fetch(stand_id)
 
@@ -41,11 +48,18 @@ class StandDetailFragment : Fragment() {
         recComment.adapter = commentListAdapter
 
         observeViewModel()
+
+        btnAddReview.setOnClickListener {
+            val action = StandDetailFragmentDirections.actionAddReview()
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
-    fun update(standDetail: Stand){
-        val stand = standDetail
-        Log.d("ajax", stand.toString())
+    fun update(standDetail: ApiResponse){
+//        val api:ArrayList<ApiResponse> = arrayListOf(ApiResponse(standDetail))
+        Log.d("ajax1", standDetail.toString())
+
+        val stand = standDetail.data[0]
         txtPlaceName.text = stand.nama_tempat
         txtPlaceAddress.text = stand.lokasi
         if (stand.deskripsi == null){

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = (supportFragmentManager.findFragmentById(R.id.hostFragment) as
                 NavHostFragment).navController
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(navView, navController)
         bottomNav.setupWithNavController(navController)
 

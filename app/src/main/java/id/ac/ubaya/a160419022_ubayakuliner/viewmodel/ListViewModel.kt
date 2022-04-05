@@ -10,28 +10,32 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponse
+
 
 class ListViewModel(application: Application) : AndroidViewModel(application) {
-    val standLiveData = MutableLiveData<ArrayList<Stand>>()
+    val standLiveData = MutableLiveData<ApiResponse>()
+    val favoriteLiveData = MutableLiveData<ApiResponse>()
     val standLoadErrorLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = MutableLiveData<Boolean>()
     val TAG = "volleyTag"
     private var queue: RequestQueue?=null
 
-    fun refresh(search:String?){
+    fun refresh(search:String = "all"){
         standLoadErrorLiveData.value = false
 
-        if (search != null){
+        if (search == "all"){
             queue = Volley.newRequestQueue(getApplication())
             val url = "https://ubaya.fun/native/160419022/ANMP/getalldata.php"
+
             Log.d("masuk","masuk not null")
 
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
                 {
-                    val sType = object : TypeToken<ArrayList<Stand>>(){}.type
-                    val result = Gson().fromJson<ArrayList<Stand>>(it, sType)
+//                    val sType = object : TypeToken<ApiResponse>(){}.type
+//                    val result = Gson().fromJson<ArrayList<ApiResponse>>(it, sType)
+                    val result: ApiResponse = Gson().fromJson(it, ApiResponse::class.java)
                     standLiveData.value = result
 
                     loadingLiveData.value = false
@@ -48,18 +52,20 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             }
             queue?.add(stringRequest)
         }
-        else if (search == null || search == ""){
-            Log.d("masuk","masuk null")
+        else if (search == "favorite"){
+            Log.d("masuk","masuk favorite")
 
             queue = Volley.newRequestQueue(getApplication())
-            val url = "#"
+            val url = "https://ubaya.fun/native/160419022/ANMP/getfavorite.php"
             Log.d("masuk",url)
 
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
                 {
-                    val sType = object : TypeToken<ArrayList<Stand>>(){}.type
-                    val result = Gson().fromJson<ArrayList<Stand>>(it, sType)
+//                    val sType = object : TypeToken<ArrayList<Stand>>(){}.type
+//                    val result = Gson().fromJson<ArrayList<Stand>>(it, sType)
+                    val result: ApiResponse = Gson().fromJson(it, ApiResponse::class.java)
+
                     standLiveData.value = result
 
                     loadingLiveData.value = false

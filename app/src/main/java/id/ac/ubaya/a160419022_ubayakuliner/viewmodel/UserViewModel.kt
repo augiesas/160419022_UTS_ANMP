@@ -11,37 +11,36 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponse
-import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseGenre
-import id.ac.ubaya.a160419022_ubayakuliner.model.Comment
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseUser
 import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
+import id.ac.ubaya.a160419022_ubayakuliner.model.User
 
-class DetailViewModel (application: Application) : AndroidViewModel(application) {
+class UserViewModel  (application: Application) : AndroidViewModel(application) {
 
-    val standLiveData = MutableLiveData<ApiResponse>()
-    val standLoadErrorLiveData = MutableLiveData<Boolean>()
+    val userLiveData = MutableLiveData<ApiResponseUser>()
+    val userLoadErrorLiveData = MutableLiveData<Boolean>()
     val loadingLiveData = MutableLiveData<Boolean>()
     val TAG = "volleyTag"
     private var queue: RequestQueue? = null
 
-    fun fetch(standId: Int) {
+    fun fetch() {
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://ubaya.fun/native/160419022/ANMP/getdetailstand.php?id=$standId"
-        Log.d("masuk", "masuk not null")
+        val url = "https://ubaya.fun/native/160419022/ANMP/getuser.php"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
-//                val sType = object : TypeToken<ArrayList<Stand>>(){}.type
-//                val result = Gson().fromJson<Stand>(it, Stand::class.java)
-                val result: ApiResponse = Gson().fromJson(it, ApiResponse::class.java)
+//                val sType = object : TypeToken<ArrayList<User>>(){}.type
+//                val result = Gson().fromJson<ArrayList<User>>(it, sType)
+                val result: ApiResponseUser = Gson().fromJson(it, ApiResponseUser::class.java)
 
-                standLiveData.value = result
+                userLiveData.value = result
 
                 loadingLiveData.value = false
-                Log.d("showvolleydetail", it)
+                Log.d("showvolley", it)
             },
             {
-                standLoadErrorLiveData.value = true
+                userLoadErrorLiveData.value = true
                 loadingLiveData.value = false
                 Log.d("errorvolley", it.toString())
 

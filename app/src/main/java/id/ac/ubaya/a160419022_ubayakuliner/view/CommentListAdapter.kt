@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.ubaya.a160419022_ubayakuliner.R
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponse
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseComment
 import id.ac.ubaya.a160419022_ubayakuliner.model.Comment
 import id.ac.ubaya.a160419022_ubayakuliner.model.Stand
 import id.ac.ubaya.a160419022_ubayakuliner.util.loadImage
@@ -23,7 +25,9 @@ class CommentListAdapter (val commentList:ArrayList<Comment>):RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        val comment = commentList[position]
+        val api:ArrayList<ApiResponseComment> = arrayListOf(ApiResponseComment(commentList))
+
+        val comment = api[0].data[position]
         with(holder.view){
             txtUsername.text = comment.nama_pengguna
             txtCommentDate.text = comment.date
@@ -33,9 +37,9 @@ class CommentListAdapter (val commentList:ArrayList<Comment>):RecyclerView.Adapt
 
     override fun getItemCount() = commentList.size
 
-    fun updateCommentList(newCommentList: ArrayList<Comment>){
+    fun updateCommentList(newCommentList: ApiResponseComment){
         commentList.clear()
-        commentList.addAll(newCommentList)
+        commentList.addAll(newCommentList.data)
         notifyDataSetChanged()
     }
 }
