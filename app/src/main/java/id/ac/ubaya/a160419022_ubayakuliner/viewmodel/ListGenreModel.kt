@@ -22,8 +22,9 @@ class ListGenreModel (application: Application) : AndroidViewModel(application) 
     val TAG = "volleyTag"
     private var queue: RequestQueue?=null
 
-    fun getGenre(){
-        genreLoadErrorLiveData.value = false
+    fun getGenre(type:String = "all", id:Int?){
+        if (type == "all"){
+            genreLoadErrorLiveData.value = false
 
             queue = Volley.newRequestQueue(getApplication())
             val url = "https://ubaya.fun/native/160419022/ANMP/getalltype.php"
@@ -52,6 +53,39 @@ class ListGenreModel (application: Application) : AndroidViewModel(application) 
                 tag = "TAG"
             }
             queue?.add(stringRequest)
+        }
+        else if(type == "menu" && id != null){
+            genreLoadErrorLiveData.value = false
+
+            queue = Volley.newRequestQueue(getApplication())
+            val url = "https://ubaya.fun/native/160419022/ANMP/getmenutype.php?id=${id}"
+
+            Log.d("masuk","masuk not null")
+
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                {
+//                    val sType = object : TypeToken<ArrayList<Genre>>(){}.type
+//                    val result = Gson().fromJson<ArrayList<Genre>>(it, sType)
+                    val result: ApiResponseGenre = Gson().fromJson(it, ApiResponseGenre::class.java)
+
+                    genreLiveData.value = result
+
+                    genreLoadingLiveData.value = false
+                    Log.d("showvolley",it)
+                },
+                {
+                    genreLoadErrorLiveData.value = true
+                    genreLoadingLiveData.value = false
+                    Log.d("errorvolley",it.toString())
+
+                }
+            ).apply {
+                tag = "TAG"
+            }
+            queue?.add(stringRequest)
+        }
+
     }
 
     override fun onCleared() {

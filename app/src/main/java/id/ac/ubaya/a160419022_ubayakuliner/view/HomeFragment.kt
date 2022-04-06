@@ -16,9 +16,12 @@ import com.google.android.material.chip.ChipGroup
 import id.ac.ubaya.a160419022_ubayakuliner.R
 import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponse
 import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseGenre
+import id.ac.ubaya.a160419022_ubayakuliner.model.ApiResponseUser
 import id.ac.ubaya.a160419022_ubayakuliner.model.Genre
+import id.ac.ubaya.a160419022_ubayakuliner.util.loadImage
 import id.ac.ubaya.a160419022_ubayakuliner.viewmodel.ListGenreModel
 import id.ac.ubaya.a160419022_ubayakuliner.viewmodel.ListViewModel
+import id.ac.ubaya.a160419022_ubayakuliner.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_user.*
@@ -27,6 +30,8 @@ import kotlinx.android.synthetic.main.fragment_user.*
 class HomeFragment : Fragment() {
     private lateinit var viewModel: ListViewModel
     private lateinit var viewModelType: ListGenreModel
+    private lateinit var viewModelUser: UserViewModel
+
     private val standListAdapter = HomeListAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -41,6 +46,8 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Ubaya Kuliner"
 
+        viewModelUser = ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModelUser.fetch()
         viewModel =ViewModelProvider(this).get(ListViewModel::class.java)
         viewModel.refresh("favorite")
 
@@ -48,7 +55,7 @@ class HomeFragment : Fragment() {
         recFavorite.adapter = standListAdapter
 
         viewModelType = ViewModelProvider(this).get(ListGenreModel::class.java)
-        viewModelType.getGenre()
+        viewModelType.getGenre("all",null)
 
         observeViewModel()
 
@@ -56,8 +63,9 @@ class HomeFragment : Fragment() {
             recFavorite.visibility = View.GONE
             txtErrorHome.visibility = View.GONE
             progressLoadHome.visibility = View.VISIBLE
+            viewModelUser.fetch()
             viewModel.refresh("favorite")
-            viewModelType.getGenre()
+            viewModelType.getGenre("all",null)
             refreshLayoutHome.isRefreshing = false
         }
 
@@ -67,12 +75,20 @@ class HomeFragment : Fragment() {
         }
     }
 
+    fun update(userDetail: ApiResponseUser){
+        val user = userDetail.data[0]
+        txtNamaPengguna.text = user.username
+    }
+
     private fun observeViewModel() {
         viewModel.standLiveData.observe(viewLifecycleOwner, Observer {
             standListAdapter.updateStandList(it)
         })
         viewModelType.genreLiveData.observe(viewLifecycleOwner, Observer {
             Tipe(it)
+        })
+        viewModelUser.userLiveData.observe(viewLifecycleOwner, Observer {
+            update(it)
         })
         viewModel.standLoadErrorLiveData.observe(viewLifecycleOwner){
             if(it){
