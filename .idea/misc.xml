@@ -7,7 +7,10 @@
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/frosted_back.xml" value="0.237" />
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/gradient_over.xml" value="0.2985" />
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/ic_favorite.xml" value="0.2985" />
-        <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/layout/activity_main.xml" value="0.35144927536231885" />
+        <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/ic_favorite_fill.xml" value="0.223" />
+        <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/ic_search_alt.xml" value="0.223" />
+        <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/drawable/ic_user.xml" value="0.237" />
+        <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/layout/button_more_item.xml" value="0.67" />
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/layout/comment_list_item.xml" value="0.33" />
         <entry key="..\:/Materi Kuliah/NMP/160419022_UbayaKuliner/app/src/main/res/layout/fragment_add_review.xml" value="0.5" />

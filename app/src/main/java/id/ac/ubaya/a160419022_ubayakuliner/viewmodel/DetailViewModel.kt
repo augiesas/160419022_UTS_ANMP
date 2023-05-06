@@ -33,6 +33,7 @@ class DetailViewModel (application: Application) : AndroidViewModel(application)
             {
 //                val sType = object : TypeToken<ArrayList<Stand>>(){}.type
 //                val result = Gson().fromJson<Stand>(it, Stand::class.java)
+                Log.d("test-json",it)
                 val result: ApiResponse = Gson().fromJson(it, ApiResponse::class.java)
 
                 standLiveData.value = result

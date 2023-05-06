@@ -1,5 +1,6 @@
 package id.ac.ubaya.a160419022_ubayakuliner.view
 
+//import android.app.Fragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

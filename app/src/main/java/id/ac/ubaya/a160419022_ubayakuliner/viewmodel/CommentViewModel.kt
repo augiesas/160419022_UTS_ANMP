@@ -25,7 +25,6 @@ class CommentViewModel (application: Application) : AndroidViewModel(application
     fun fetch(standId: Int){
         commentsLoadErrorLiveData.value = false
 
-
         queue = Volley.newRequestQueue(getApplication())
         val url = "https://ubaya.fun/native/160419022/ANMP/getcomment.php?id=$standId"
         val stringRequest = StringRequest(
